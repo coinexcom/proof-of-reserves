@@ -64,7 +64,7 @@ func hash(v string) string {
 	return hex.EncodeToString(b)
 }
 
-type MarkelProof struct {
+type MerkleProof struct {
 	Root struct {
 		Balances Balance
 		Hash     string
@@ -80,7 +80,7 @@ type MarkelProof struct {
 	}
 }
 
-func (m *MarkelProof) Validate() bool {
+func (m *MerkleProof) Validate() bool {
 	h := hash(m.Self.Nonce + m.Self.Balances.Format())
 	b := m.Self.Balances
 	for _, path := range m.Path {
@@ -123,7 +123,7 @@ func main() {
 		fmt.Println("invalid merkle proof file", err)
 		return
 	}
-	var m MarkelProof
+	var m MerkleProof
 	if err := json.Unmarshal(b, &m); err != nil {
 		fmt.Println("invalid merkle proof file", err)
 		return
